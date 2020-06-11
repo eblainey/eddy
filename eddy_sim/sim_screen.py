@@ -1,15 +1,5 @@
 #!/usr/bin/python3
-
-
-
-# updates the location of the robot by taking the current position of the robot (x,y,theta)
-# and moving it to (x+dt*linearx * cos(theta), y+dt*linearx*sin(theta), theta+dt angularz)
-
-
-# It publishes this as a Pose
-
-# It listens to a message of type Pose (called set_pose) that sets the pose.
-
+import rospy, turtle, sys, os,  math, random
 
 # THE SCREEN
 
@@ -24,7 +14,7 @@ win.tracer(6)
 
 # eddy on the screen
 # win.register_shape('eddy.obj')
-# eddy= turtle.Turtle()
+  eddy= turtle.Turtle()
 # eddy.shape('eddy.obj')
 # eddy.penup()
 # eddy.goto(-200, 200)
@@ -40,3 +30,28 @@ for count in range(weedSections):
     weeds[count].shape("circle")
     weeds[count].penup()
     weeds[count].setposition(random.randint(-215, 215), random.randint(-215, 215))
+
+# keys
+turtle.listen()
+turtle.onkey(changeScreen, "Return")
+
+vel = 1
+
+def moveforward():
+    player1.forward(20)
+
+def turnleft():
+    player1.left(90)
+
+def turnright():
+    player1.right(90)
+
+turtle.listen()
+turtle.onkey(turnleft, "Left")
+turtle.onkey(turnright, "Right")
+turtle.onkey(moveforward, "Up")
+
+while True:
+    # move car
+    eddy.penup()
+    eddy.forward(speed)
